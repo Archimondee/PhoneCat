@@ -1,1 +1,13 @@
-<p>This is the partial for view 1.</p>
+<div class ="row" >
+    <div class="col-md-2">
+        Search: <input data-ng-model="query">
+    </div>
+    <div class="col-md-10">
+         <ul>
+            <li data-ng-repeat="phone in phones | filter:query">
+              <span>{{phone.name}}</span>
+              <p>{{phone.snippet}}</p>
+            </li>
+          </ul>
+    </div>
+</div>  

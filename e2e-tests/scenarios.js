@@ -11,18 +11,27 @@ describe('my app', function() {
   });
 
 
-  describe('view1', function() {
+  describe('Phone list view', function () {
 
-    beforeEach(function() {
-      browser.get('index.html#/view1');
-    });
+      beforeEach(function () {
+          browser.get('app/index.html');
+      });
 
 
-    it('should render view1 when user navigates to /view1', function() {
-      expect(element.all(by.css('[ng-view] p')).first().getText()).
-        toMatch(/partial for view 1/);
-    });
+      it('should filter the phone list as a user types into the search box', function () {
 
+          var phoneList = element.all(by.repeater('phone in phones'));
+          var query = element(by.model('query'));
+
+          expect(phoneList.count()).toBe(3);
+
+          query.sendKeys('nexus');
+          expect(phoneList.count()).toBe(1);
+
+          query.clear();
+          query.sendKeys('motorola');
+          expect(phoneList.count()).toBe(2);
+      });
   });
 
 
@@ -40,3 +49,30 @@ describe('my app', function() {
 
   });
 });
+
+
+//describe('my App', function () {
+
+//    describe('Phone list view', function () {
+
+//        beforeEach(function () {
+//            browser.get('app/index.html');
+//        });
+
+
+//        it('should filter the phone list as a user types into the search box', function () {
+
+//            var phoneList = element.all(by.repeater('phone in phones'));
+//            var query = element(by.model('query'));
+
+//            expect(phoneList.count()).toBe(3);
+
+//            query.sendKeys('nexus');
+//            expect(phoneList.count()).toBe(1);
+
+//            query.clear();
+//            query.sendKeys('motorola');
+//            expect(phoneList.count()).toBe(2);
+//        });
+//    });
+//});
