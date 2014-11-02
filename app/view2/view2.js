@@ -1,14 +1,21 @@
 'use strict';
 
-angular.module('myApp.view2', ['ngRoute'])
+angular.module('myApp.view2', ['ngRoute', 'phonecatFilters'])
 
 .config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/view2', {
+    $routeProvider.when('/view2/:phoneId', {
     templateUrl: 'view2/view2.html',
-    controller: 'View2Ctrl'
+    controller: 'PhoneDetailCtrl'
   });
 }])
 
-.controller('View2Ctrl', [function() {
+.controller('PhoneDetailCtrl', ['$scope', '$routeParams', '$http', function ($scope, $routeParams, $http) {
+    $http.get('phones/' + $routeParams.phoneId + '.json').success(function (data) {
+        $scope.phone = data;
+        $scope.mainImageUrl = data.images[0];
+    });
 
+    $scope.setImage = function (imageUrl) {
+        $scope.mainImageUrl = imageUrl;
+    }
 }]);
